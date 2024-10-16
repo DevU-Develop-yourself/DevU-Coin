@@ -1,89 +1,63 @@
 // Получаем элементы из DOM
 const authContainer = document.getElementById('authContainer');
 const gameContainer = document.getElementById('gameContainer');
-const achievementsContainer = document.getElementById('achievementsContainer');
-const achievementsList = document.getElementById('achievementsList');
 const usernameInput = document.getElementById('username');
 const loginButton = document.getElementById('loginButton');
 const logoutButton = document.getElementById('logoutButton');
 const playerName = document.getElementById('playerName');
 const coinButton = document.getElementById('coinButton');
 const coinDisplay = document.getElementById('coinCount');
-
-// Загружаем данные игрока из localStorage
+const energyDisplay = document.getElementById('energyCount'); // Элемент для отображения энергии
+const energyBar = document.getElementById('energyBar'); // Элемент для шкалы энергии
 let playerData = JSON.parse(localStorage.getItem('playerData')) || {};
-let achievements = {
-    firstCoin: false,
-    fiftyCoins: false,
-    hundredCoins: false
-};
+playerData.energy = playerData.energy || 5000; // Начальное количество энергии (максимум 5000)
 
 // Если данные есть, показываем игру
 if (playerData.name) {
     showGame(playerData);
 }
 
-// Функция для входа в игру
-loginButton.addEventListener('click', () => {
-    const username = usernameInput.value.trim();
-    if (username) {
-        playerData = { name: username, coins: 0 };
-        localStorage.setItem('playerData', JSON.stringify(playerData));
-        showGame(playerData);
-    }
-});
-
 // Функция для отображения игрового экрана
 function showGame(data) {
     playerName.textContent = data.name;
     coinDisplay.textContent = data.coins;
+    energyDisplay.textContent = data.energy; // Отображаем количество энергии
+    updateEnergyBar(data.energy); // Обновляем шкалу энергии
     authContainer.classList.add('hidden');
     gameContainer.classList.remove('hidden');
-    achievementsContainer.classList.remove('hidden'); // Показываем блок достижений
-    renderAchievements();
 }
 
 // Обработка кликов по монете
 coinButton.addEventListener('click', () => {
-    playerData.coins++;
-    coinDisplay.textContent = playerData.coins;
-    localStorage.setItem('playerData', JSON.stringify(playerData));
-
-    // Проверка достижений
-    checkAchievements(playerData.coins);
+    if (playerData.energy > 0) {
+        playerData.coins++;
+        playerData.energy--; // Уменьшаем энергию
+        coinDisplay.textContent = playerData.coins;
+        energyDisplay.textContent = playerData.energy; // Обновляем отображение энергии
+        updateEnergyBar(playerData.energy); // Обновляем шкалу энергии
+        localStorage.setItem('playerData', JSON.stringify(playerData));
+    } else {
+        alert("У вас недостаточно энергии!");
+    }
 });
 
-function checkAchievements(coins) {
-    if (coins === 1 && !achievements.firstCoin) {
-        achievements.firstCoin = true;
-        addAchievement("Вы получили достижение: Первая монета!");
-    }
-    if (coins === 50 && !achievements.fiftyCoins) {
-        achievements.fiftyCoins = true;
-        addAchievement("Вы получили достижение: 50 монет!");
-    }
-    if (coins === 100 && !achievements.hundredCoins) {
-        achievements.hundredCoins = true;
-        addAchievement("Вы получили достижение: 100 монет!");
-    }
+// Функция для восстановления энергии
+function restoreEnergy() {
+    playerData.energy = Math.min(playerData.energy + 10, 5000); // Максимум 5000 энергии
+    energyDisplay.textContent = playerData.energy;
+    updateEnergyBar(playerData.energy); // Обновляем шкалу энергии
+    localStorage.setItem('playerData', JSON.stringify(playerData));
 }
 
-// Функция добавления достижения в список
-function addAchievement(message) {
-    const li = document.createElement('li');
-    li.textContent = message;
-    achievementsList.appendChild(li);
+// Обновление шкалы энергии
+function updateEnergyBar(energy) {
+    const maxEnergy = 5000;
+    const percentage = (energy / maxEnergy) * 100;
+    energyBar.style.width = `${percentage}%`;
 }
 
-// Функция отображения достижений
-function renderAchievements() {
-    achievementsList.innerHTML = '';
-    for (let key in achievements) {
-        if (achievements[key]) {
-            addAchievement(key);
-        }
-    }
-}
+// Восстанавливаем энергию каждую секунду
+setInterval(restoreEnergy, 1000);
 
 // Функция выхода из игры
 logoutButton.addEventListener('click', () => {
@@ -91,5 +65,14 @@ logoutButton.addEventListener('click', () => {
     gameContainer.classList.add('hidden');
     authContainer.classList.remove('hidden');
     usernameInput.value = '';
-    achievementsList.innerHTML = ''; // Очищаем достижения при выходе
+});
+
+// Функция для входа в игру
+loginButton.addEventListener('click', () => {
+    const username = usernameInput.value.trim();
+    if (username) {
+        playerData = { name: username, coins: 0, energy: 5000 };
+        localStorage.setItem('playerData', JSON.stringify(playerData));
+        showGame(playerData);
+    }
 });
