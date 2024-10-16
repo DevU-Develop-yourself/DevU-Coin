@@ -18,14 +18,12 @@
     <div class="container hidden" id="gameContainer">
         <h1>Привет, <span id="playerName"></span>!</h1>
         <p>Монеты: <span id="coinCount">0</span></p>
+        <p>Энергия: <span id="energyCount">5000</span></p>
+        <div class="energy-bar-container" style="background-color: #333; border-radius: 5px; width: 100%; height: 20px; margin-top: 10px;">
+            <div id="energyBar" class="energy-bar" style="background-color: #6a0dad; height: 100%; width: 100%; border-radius: 5px;"></div>
+        </div>
         <button id="coinButton" class="coin"></button>
         <button id="logoutButton" class="logout">Выйти</button>
-        
-        <!-- Новый блок достижений -->
-        <div class="achievements-container hidden" id="achievementsContainer">
-            <h2>Достижения</h2>
-            <ul id="achievementsList"></ul>
-        </div>
     </div>
 
     <script src="script.js"></script>
