@@ -4,7 +4,7 @@ body {
     padding: 0;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(145deg, #282c34, #3c4043); /* Более мягкие цвета */
+    background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
     color: white;
     display: flex;
     justify-content: center;
@@ -69,22 +69,18 @@ body {
 .container {
     text-align: center;
     z-index: 1;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 /* Кнопка монеты */
 .coin {
     width: 150px;
     height: 150px;
-    background-color: #ffd700; /* Золотистый цвет */
+    background-color: #6a0dad;
     border-radius: 50%;
     border: 5px solid #000;
     cursor: pointer;
     transition: transform 0.1s, background-color 0.3s;
-    box-shadow: 0 0 15px #ffd700, 0 0 30px #ffd700;
+    box-shadow: 0 0 15px #6a0dad, 0 0 30px #6a0dad;
 }
 
 .coin:active {
@@ -105,8 +101,23 @@ body {
     background-color: #e5533f;
 }
 
-/* Достижения */
-.achievements {
+/* Стили для блока достижений */
+.achievements-container {
     margin-top: 20px;
-    text-align: center;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.achievements-container h2 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+}
+
+#achievementsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
