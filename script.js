@@ -31,7 +31,7 @@ function showGame(data) {
 coinButton.addEventListener('click', () => {
     if (playerData.energy > 0) {
         playerData.coins++;
-        playerData.energy--; // Уменьшаем энергию
+        playerData.energy-1000; // Уменьшаем энергию
         coinDisplay.textContent = playerData.coins;
         energyDisplay.textContent = playerData.energy; // Обновляем отображение энергии
         updateEnergyBar(playerData.energy); // Обновляем шкалу энергии
