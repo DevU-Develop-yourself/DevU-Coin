@@ -43,7 +43,7 @@ coinButton.addEventListener('click', () => {
 
 // Функция для восстановления энергии
 function restoreEnergy() {
-    playerData.energy = Math.min(playerData.energy + 10, 5000); // Максимум 5000 энергии
+    playerData.energy = Math.min(playerData.energy + 1, 5000); // Максимум 5000 энергии
     energyDisplay.textContent = playerData.energy;
     updateEnergyBar(playerData.energy); // Обновляем шкалу энергии
     localStorage.setItem('playerData', JSON.stringify(playerData));
@@ -61,7 +61,7 @@ setInterval(restoreEnergy, 1000);
 
 // Функция выхода из игры
 logoutButton.addEventListener('click', () => {
-    localStorage.removeItem('playerData');
+    // localStorage.removeItem('playerData');
     gameContainer.classList.add('hidden');
     authContainer.classList.remove('hidden');
     usernameInput.value = '';
