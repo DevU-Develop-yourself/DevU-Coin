@@ -2,117 +2,134 @@
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
     font-family: 'Arial', sans-serif;
     background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
     color: white;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
 }
 
-/* Плавающие частицы */
-.particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+/* Контейнеры */
+.auth-container {
+    width: 250px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px black solid;
+    /* animation: pulse 2s infinite; */
+}
+
+.container {
+    width: 250px;
     height: 100%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 1%, transparent 60%);
-    background-size: 10px 10px;
-    animation: float 5s infinite alternate;
-    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px black solid;
+    /* animation: pulse 2s infinite; */
 }
 
-@keyframes float {
-    to {
-        transform: translateY(-10px);
-    }
-}
-
-/* Скрытие элементов */
 .hidden {
     display: none;
 }
 
-/* Авторизация */
-.auth-container {
-    text-align: center;
-    z-index: 1;
-}
-
-.auth-container input {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: none;
-    width: 80%;
-    max-width: 300px;
-}
-
-.auth-container button {
-    padding: 10px 20px;
-    background-color: #6a0dad;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.auth-container button:hover {
-    background-color: #5a0ca0;
-}
-
-/* Контейнер игры */
-.container {
-    text-align: center;
-    z-index: 1;
-}
-
-/* Кнопка монеты */
-.coin {
-    width: 150px;
-    height: 150px;
-    background-color: #6a0dad;
-    border-radius: 50%;
-    border: 5px solid #000;
-    cursor: pointer;
-    transition: transform 0.1s, background-color 0.3s;
-    box-shadow: 0 0 15px #6a0dad, 0 0 30px #6a0dad;
-}
-
-.coin:active {
-    transform: scale(0.9);
-}
-
-/* Кнопка выхода */
-.logout {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #ff6347;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.logout:hover {
-    background-color: #e5533f;
-}
-
-/* Энергия */
-.energy-bar-container {
+button {
     margin-top: 10px;
-    width: 100%;
-    height: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.logout {
+    background-color: #6a0dad;
+    border-radius: 5px;
+    animation: buttonPulse 3s infinite;
+}
+
+.energy-bar-container {
+    width: 80%;
+    height: 30px;
     background-color: #333;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 .energy-bar {
-    height: 100%;
+    height: 30px;
     background-color: #6a0dad;
+    width: 100%;
     border-radius: 5px;
-    transition: width 0.2s;
+    animation: glow 2s infinite;
+}
+
+/* Монета */
+.coin {
+    height: 100px; /* высота элемента */
+    width: 100px; /* ширина элемента */
+    background-image: url("coin.png"); /* путь к изображению */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* изображение не повторяется */
+    border: 5px rgb(160, 110, 0) solid;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease; /* плавный переход при нажатии */
+}
+
+/* Эффект нажатия на монету */
+.coin:active {
+    transform: scale(0.9); /* уменьшение размера при нажатии */
+}
+
+/* Анимация пульсации для контейнеров */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Анимация пульсации для кнопки */
+@keyframes buttonPulse {
+    0%, 100% {
+        background-color: #6a0dad;
+    }
+    50% {
+        background-color: #8b5cd6;
+    }
+}
+
+/* Анимация свечения для полоски энергии */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 10px #6a0dad;
+    }
+    50% {
+        box-shadow: 0 0 20px #6a0dad;
+    }
+    100% {
+        box-shadow: 0 0 10px #6a0dad;
+    }
 }
