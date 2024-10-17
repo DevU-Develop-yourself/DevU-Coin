@@ -63,7 +63,7 @@ setInterval(() => {
         updateUI();
         localStorage.setItem('playerData', JSON.stringify(playerData));
     }
-}, 2000);
+}, 1000);
 
 // Функция выхода из игры
 logoutButton.addEventListener('click', () => {
