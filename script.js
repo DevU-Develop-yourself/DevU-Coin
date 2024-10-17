@@ -1,3 +1,7 @@
+// Инициализация Telegram WebApp API
+const tg = window.Telegram.WebApp; // Проверяем наличие API
+tg.ready(); // Сообщаем Telegram, что Web App загружено и готово к работе
+
 // Получаем элементы из DOM
 const authContainer = document.getElementById('authContainer');
 const gameContainer = document.getElementById('gameContainer');
@@ -5,7 +9,6 @@ const usernameInput = document.getElementById('username');
 const loginButton = document.getElementById('loginButton');
 const logoutButton = document.getElementById('logoutButton');
 const playerName = document.getElementById('playerName');
-const coinButton = document.getElementById('coinButton');
 const coinDisplay = document.getElementById('coinCount');
 const energyDisplay = document.getElementById('energyCount');
 const energyBar = document.getElementById('energyBar');
@@ -26,7 +29,19 @@ function updateEnergyBar(energy) {
     energyBar.style.width = `${percentage}%`;
 }
 
-// Функция для входа в игру
+// Показываем игровое поле
+function showGame(data) {
+    authContainer.classList.add('hidden');
+    gameContainer.classList.remove('hidden');
+    playerName.textContent = data.name;
+    updateUI();
+
+    // Показываем кнопку получения монет
+    tg.MainButton.setText("Получить монету");
+    tg.MainButton.show();
+}
+
+// Логика входа в игру
 loginButton.addEventListener('click', () => {
     const username = usernameInput.value.trim();
     if (username) {
@@ -36,38 +51,31 @@ loginButton.addEventListener('click', () => {
     }
 });
 
-// Показываем игровое поле
-function showGame(data) {
-    authContainer.classList.add('hidden');
-    gameContainer.classList.remove('hidden');
-    playerName.textContent = data.name;
-    updateUI();
-}
-
-// Клик для получения монет и уменьшения энергии
-coinButton.addEventListener('click', () => {
+// Логика кнопки получения монет через Telegram API
+tg.MainButton.onClick(() => {
     if (playerData.energy >= 10) {
         playerData.coins += 1;
-        playerData.energy -= 1;
+        playerData.energy -= 10;
         updateUI();
         localStorage.setItem('playerData', JSON.stringify(playerData));
     } else {
-        alert("Недостаточно энергии!");
+        tg.showAlert("Недостаточно энергии!");
     }
 });
 
-// Восстанавливаем энергию каждую секунду
+// Восстанавливаем энергию каждые 2 секунды
 setInterval(() => {
     if (playerData.energy < 5000) {
-        playerData.energy += 5;  // Медленное восстановление
+        playerData.energy += 2; // Медленное восстановление
         updateUI();
         localStorage.setItem('playerData', JSON.stringify(playerData));
     }
-}, 1000);
+}, 2000);
 
-// Функция выхода из игры
+// Логика выхода
 logoutButton.addEventListener('click', () => {
     gameContainer.classList.add('hidden');
     authContainer.classList.remove('hidden');
     usernameInput.value = '';
+    tg.MainButton.hide(); // Скрываем кнопку при выходе
 });
