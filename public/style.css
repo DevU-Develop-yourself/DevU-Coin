@@ -59,7 +59,7 @@ button {
     border-radius: 5px;
     animation: buttonPulse 3s infinite;
 }
-#loginButton{
+.loginButton{
     background-color: #6a0dad;
     border-radius: 5px;
     animation: buttonPulse 3s infinite;
