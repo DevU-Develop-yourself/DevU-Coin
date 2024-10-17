@@ -1,0 +1,139 @@
+/* Основные стили */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Контейнеры */
+.auth-container {
+    width: 250px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px black solid;
+    /* animation: pulse 2s infinite; */
+}
+
+.container {
+    width: 250px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px black solid;
+    /* animation: pulse 2s infinite; */
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.logout {
+    background-color: #6a0dad;
+    border-radius: 5px;
+    animation: buttonPulse 3s infinite;
+}
+#loginButton{
+    background-color: #6a0dad;
+    border-radius: 5px;
+    animation: buttonPulse 3s infinite;
+}
+.energy-bar-container {
+    width: 80%;
+    height: 30px;
+    background-color: #333;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.energy-bar {
+    height: 30px;
+    background-color: #6a0dad;
+    width: 100%;
+    border-radius: 5px;
+    animation: glow 2s infinite;
+}
+
+/* Монета */
+.coin {
+    height: 100px; /* высота элемента */
+    width: 100px; /* ширина элемента */
+    background-image: url("coin.png"); /* путь к изображению */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* изображение не повторяется */
+    border: 5px rgb(160, 110, 0) solid;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease; /* плавный переход при нажатии */
+}
+
+/* Эффект нажатия на монету */
+.coin:active {
+    transform: scale(0.9); /* уменьшение размера при нажатии */
+}
+
+/* Анимация пульсации для контейнеров */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Анимация пульсации для кнопки */
+@keyframes buttonPulse {
+    0%, 100% {
+        background-color: #6a0dad;
+    }
+    50% {
+        background-color: #8b5cd6;
+    }
+}
+
+/* Анимация свечения для полоски энергии */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 10px #6a0dad;
+    }
+    50% {
+        box-shadow: 0 0 20px #6a0dad;
+    }
+    100% {
+        box-shadow: 0 0 10px #6a0dad;
+    }
+}
