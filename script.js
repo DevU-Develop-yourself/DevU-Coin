@@ -48,7 +48,7 @@ function showGame(data) {
 coinButton.addEventListener('click', () => {
     if (playerData.energy >= 10) {
         playerData.coins += 1;
-        playerData.energy -= 10;
+        playerData.energy -= 1;
         updateUI();
         localStorage.setItem('playerData', JSON.stringify(playerData));
     } else {
@@ -59,7 +59,7 @@ coinButton.addEventListener('click', () => {
 // Восстанавливаем энергию каждую секунду
 setInterval(() => {
     if (playerData.energy < 5000) {
-        playerData.energy += 2;  // Медленное восстановление
+        playerData.energy += 5;  // Медленное восстановление
         updateUI();
         localStorage.setItem('playerData', JSON.stringify(playerData));
     }
