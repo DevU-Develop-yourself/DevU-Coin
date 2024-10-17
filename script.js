@@ -31,7 +31,7 @@ function showGame(data) {
 coinButton.addEventListener('click', () => {
     if (playerData.energy > 0) {
         playerData.coins++;
-        playerData.energy--; // Уменьшаем энергию
+        playerData.energy -= 5; // Энергия тратится медленнее
         coinDisplay.textContent = playerData.coins;
         energyDisplay.textContent = playerData.energy; // Обновляем отображение энергии
         updateEnergyBar(playerData.energy); // Обновляем шкалу энергии
@@ -56,8 +56,7 @@ function updateEnergyBar(energy) {
     energyBar.style.width = `${percentage}%`;
 }
 
-// Восстанавливаем энергию каждую секунду
-setInterval(restoreEnergy, 1000);
+setInterval(restoreEnergy, 5000); // Восстановление энергии каждые 5 секунд
 
 // Функция выхода из игры
 logoutButton.addEventListener('click', () => {
